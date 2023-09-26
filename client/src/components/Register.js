@@ -3,22 +3,27 @@ import { Form, Input, Button } from 'antd'
 import {Link} from 'react-router-dom'
 
 const Register = () => {
+
+  const onFinish = (values) => {
+    console.log('Success:', values)
+  }
+
   return (
     <div className='auth-wrapper'>
       <div className='auth-form card p-2'>
         <h1 className='card-title'>Welcome to the LitLink!!</h1>
-        <Form>
+        <Form onFinish={onFinish}>
           <Form.Item name='name'>
             <Input placeholder='Enter your Name' />
           </Form.Item>
           <Form.Item name='email'>
-            <Input placeholder='Enter your Email' />
+            <Input type='email' placeholder='Enter your Email' />
           </Form.Item>
           <Form.Item name='password'>
-            <Input type='password' placeholder='Enter your Password' />
+            <Input type='password' placeholder='Create your Password' />
           </Form.Item>
           <Form.Item>
-            <Button type='primary' block>
+            <Button type='primary' htmlType='submit' block>
               Register
             </Button>
           </Form.Item>
