@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
+import Layout from '../utils/Layout'
 
 const Homepage = () => {
 
@@ -22,7 +23,9 @@ const Homepage = () => {
   }, []);
 
   return (
-    <div>Homepage</div>
+    <Layout>
+      <h1>Homepage</h1>
+    </Layout>
   )
 }
 
