@@ -29,7 +29,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const user = User.findOne({email: req.body.email});
+    const user = await User.findOne({email: req.body.email});
 
     if(!user){
       return res.status(200).send({message:"user does not exist", success: false});
@@ -41,7 +41,7 @@ router.post("/login", async (req, res) => {
       return res.status(200).send({message:"invalid credentials", success: false});
     }
     else{
-      const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresInt: '1d'});
+      const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1d'});
       res.status(200).send({message:"login successful", success: true, data: token});
     }
 
