@@ -63,6 +63,10 @@ router.post("/get-user-info-by-id", authMiddleware, async (req,res) => {
       res.status(200).send({ success: true, data: {
         name: user.name,
         email: user.email,
+        seenNotifications: user.seenNotifications,
+        unseenNotifications: user.unseenNotifications,
+        isAdmin: user.isAdmin,
+        isAuthor: user.isAuthor,
       }});
     }
   } 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Layout.css'
 import { useSelector } from 'react-redux';
 
@@ -7,6 +7,7 @@ function Layout({children}) {
 
     const {user} = useSelector((state) => state.user);
     const location = useLocation();
+    const navigate = useNavigate();
 
     const userMenu = [
         {
@@ -23,15 +24,38 @@ function Layout({children}) {
             name: 'Authors',
             path: '/authors',
             icon: 'ri-user-line'
-        },
-        {
-            name: 'Logout',
-            path: '/logout',
-            icon: 'ri-logout-box-line'
         }
     ]
 
-    const menuToBeRendered = userMenu;
+    const adminMenu = [
+        {
+            name: 'Home',
+            path: '/',
+            icon: 'ri-home-line'
+        },
+        {
+            name: 'Books',
+            path: '/books',
+            icon: 'ri-booklet-line'
+        },
+        {
+            name: 'Authors',
+            path: '/authors',
+            icon: 'ri-shield-user-line'
+        },
+        {
+            name: 'Users',
+            path: '/users',
+            icon: 'ri-user-line'
+        },
+        {
+            name: 'Orders',
+            path: '/orders',
+            icon: 'ri-book-read-line'
+        }
+    ]
+
+    const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
 
   return (
     <div className='main'>
@@ -50,6 +74,13 @@ function Layout({children}) {
                             </div>
                         );
                     })}
+                            <div className={`d-flex menu-item `} onClick={() =>{
+                                localStorage.removeItem('token');
+                                navigate('/login');
+                            }}>
+                                <i className='ri-logout-box-line'></i>
+                                <Link to='/login'>Logout</Link>
+                            </div>
                 </div>
             </div>
             <div className='content'>

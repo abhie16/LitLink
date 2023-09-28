@@ -22,13 +22,13 @@ function ProtectedRoute(props) {
         dispatch(setUser(response.data.data));
       }
       else{
-        localStorage.clear();
+        localStorage.removeItem('token');
         navigate('/login');
       }
     } 
     catch (error) {
       dispatch(hideLoading());
-      localStorage.clear();
+      localStorage.removeItem('token');
       navigate('/login');
     }
   };

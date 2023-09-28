@@ -12,10 +12,7 @@ const Homepage = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       })
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   useEffect(() => {
