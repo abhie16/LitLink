@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Layout.css'
+import { useSelector } from 'react-redux';
 
 function Layout({children}) {
 
+    const {user} = useSelector((state) => state.user);
     const location = useLocation();
 
     const userMenu = [
@@ -52,7 +54,10 @@ function Layout({children}) {
             </div>
             <div className='content'>
                 <div className='header'>
-                    <div className='d-flex flex-row-reverse'><i className="ri-notification-2-line"></i></div>
+                    <div className='d-flex flex-row-reverse'>
+                        <Link to='/profile' className='user-name'>{user?.name.split(" ")[0]}</Link>
+                        <i className="ri-notification-2-line h4 px-3"></i>
+                    </div>
                 </div>
                 <div className='body'>
                     {children}
