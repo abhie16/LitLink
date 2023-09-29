@@ -7,6 +7,10 @@ import Homepage from './components/Homepage';
 import { useSelector } from 'react-redux';
 import ProtectedRoute from './utils/ProtectedRoute';
 import PublicRoute from './utils/PublicRoute';
+import Author from './components/Author';
+import Books from './components/Books';
+import Users from './components/Users';
+import Orders from './components/Orders';
 
 function App() {
   const {loading} = useSelector(state => state.alerts);
@@ -22,10 +26,11 @@ function App() {
         <Routes>
           <Route path='/login' element = {<PublicRoute><Login /></PublicRoute>} />
           <Route path='/register' element = {<PublicRoute><Register /></PublicRoute>} />
-          <Route path='/' element = {
-          <ProtectedRoute>
-            <Homepage />
-          </ProtectedRoute>} />
+          <Route path='/' element = {<ProtectedRoute><Homepage /></ProtectedRoute>} />
+          <Route path='/authors' element = {<ProtectedRoute><Author /></ProtectedRoute>} />
+          <Route path='/books' element = {<ProtectedRoute><Books /></ProtectedRoute>} />
+          <Route path='/users' element = {<ProtectedRoute><Users /></ProtectedRoute>} />
+          <Route path='/orders' element = {<ProtectedRoute><Orders /></ProtectedRoute>} />
         </Routes>
       </Router>
   );
