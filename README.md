@@ -14,3 +14,11 @@
     - User Registration
     - User Profile
     - User Logout
+
+### Technology Used
+- nodejs
+- expressjs
+- mongodb
+- mongoose
+- reactjs
+- redux
