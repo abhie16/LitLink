@@ -1,4 +1,4 @@
-name: Issue Greeting
+name: Issue Greeting and Comment
 
 on:
   issues:
@@ -6,7 +6,7 @@ on:
       - opened
 
 jobs:
-  greet-issue-author:
+  greet-and-comment:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +19,17 @@ jobs:
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}" \
           | jq -r '.user.login')
 
-        GREETING_MESSAGE="Hello, @$ISSUE_USER! Thank you for opening this issue. We appreciate your feedback. Our team will review it as soon as possible."
+        GREETING_MESSAGE="Hello, @$ISSUE_USER! Thank you for opening this issue. We appreciate your contribution."
 
         curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           -d "{\"body\":\"$GREETING_MESSAGE\"}" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}/comments"
+
+    - name: Comment on the Issue
+      run: |
+        ISSUE_NUMBER=${{ github.event.issue.number }}
+        COMMENT_MESSAGE="We will look into this issue and provide assistance shortly. Thank you for reporting!"
+
+        curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d "{\"body\":\"$COMMENT_MESSAGE\"}" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/$ISSUE_NUMBER/comments"
