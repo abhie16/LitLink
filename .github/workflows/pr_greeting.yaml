@@ -1,0 +1,26 @@
+name: PR Greeting
+
+on:
+  pull_request:
+    types:
+      - opened
+
+jobs:
+  greet-pr-author:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Send Greeting Message
+      run: |
+        PR_USER=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" \
+          | jq -r '.user.login')
+
+        GREETING_MESSAGE="Hello, @$PR_USER! Thank you for opening this pull request. We appreciate your contribution. Our team will review it as soon as possible."
+
+        curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -d "{\"body\":\"$GREETING_MESSAGE\"}" \
+          "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.number }}/comments"
