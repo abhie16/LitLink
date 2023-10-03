@@ -9,6 +9,9 @@ jobs:
   greet-and-comment:
     runs-on: ubuntu-latest
 
+  permissions:
+    issues: write
+
     steps:
     - name: Check out code
       uses: actions/checkout@v2
