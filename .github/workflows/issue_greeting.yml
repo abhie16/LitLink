@@ -1,23 +1,15 @@
-name: Issue Greeting
+name: issue-greeting
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened]
 
 jobs:
-  greet-issue:
+  comment:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check out code
-      uses: actions/checkout@v2
-
-    - name: Comment Greeting
-      run: |
-        ISSUE_NUMBER=${{ github.event.issue.number }}
-        GREETING_MESSAGE="Hello, Thank you for opening this issue. We appreciate your contribution."
-
-        curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d "{\"body\":\"${GREETING_MESSAGE}\"}" \
-          "https://api.github.com/repos/${{ github.repository }}/issues/${ISSUE_NUMBER}/comments"
+    - uses: ben-z/actions-comment-on-issue@1.0.2
+      with:
+        message: "Hello, Thank you for opening this issue. We appreciate your contribution. Our team will review it as soon as possible."
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
