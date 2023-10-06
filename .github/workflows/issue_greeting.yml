@@ -19,5 +19,5 @@ jobs:
         GREETING_MESSAGE="Hello, Thank you for opening this issue. We appreciate your contribution."
 
         curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          -d "{\"body\":\"${{ GREETING_MESSAGE }}\"}" \
+          -d "{\"body\":\"${GREETING_MESSAGE}\"}" \
           "https://api.github.com/repos/${{ github.repository }}/issues/${{ ISSUE_NUMBER }}/comments"
