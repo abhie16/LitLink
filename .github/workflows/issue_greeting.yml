@@ -16,8 +16,7 @@ jobs:
     - name: Comment Greeting
       run: |
         ISSUE_NUMBER=${{ github.event.issue.number }}
-        ISSUE_USER=${{ github.event.issue.user.login }}
-        GREETING_MESSAGE="Hello, @${{ ISSUE_USER }}! Thank you for opening this issue. We appreciate your contribution."
+        GREETING_MESSAGE="Hello, Thank you for opening this issue. We appreciate your contribution."
 
         curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
           -d "{\"body\":\"${{ GREETING_MESSAGE }}\"}" \
